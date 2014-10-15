@@ -1,0 +1,15 @@
+input.ng-dirty.ng-invalid{
+	background-color: red;
+}
+
+input.ng-dirty.ng-valid{
+	background-color: green;
+}
+
+span { cursor: pointer; }
+
+.selected{
+	border: 4px solid green;
+
+	
+}

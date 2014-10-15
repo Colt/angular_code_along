@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html ng-app="blogApp">
+<head>
+	<title>Code Along Angular</title>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+	<script type="text/javascript" src="app.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body ng-controller="blogController as blog">
+	<div ng-init="post.tab='img'" ng-repeat="post in blog.posts | orderBy: '-votes'">
+		<h2><span ng-click="blog.addVote(post)">&#8593;({{post.votes}}) </span>{{post.title}} - <em>{{post.date | date}}</em></h2>
+
+		<a ng-click="post.tab = 'img'" href="" ng-class="{selected: post.tab === 'img'}">Image</a> | <a ng-click="post.tab = 'comments'" href="" ng-class="{selected: post.tab === 'comments '}">Comments</a>
+		<br>
+		<img ng-show="post.tab === 'img'" ng-src="{{post.url}}">
+		<div ng-show="post.tab === 'comments'">
+			<li ng-repeat="comment in post.comments">
+				{{comment.text}} - <b>{{comment.author}}</b>
+			</li>
+
+			<div ng-controller="commentsController as comments">
+				<form ng-submit="comments.addComment(post)">
+					<textarea ng-model="comments.newComment.text"placeholder="write your comment..."></textarea>
+					<input type="text" ng-model="comments.newComment.author" placeholder="author">
+					<button>Submit Comment</button>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<form name="newForm" ng-submit="newForm.$valid && blog.addPost()" novalidate ng-controller="blogController">
+		<input type="text" placeholder="title" ng-model="blog.newPost.title" required>
+		<input type="url" placeholder="image url" ng-model="blog.newPost.url" required>
+		<button>Submit Post</button>
+
+		{{blog.newPost}}
+	</form>
+
+
+<say-hello></say-hello>
+ <p say-hello></p>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
